@@ -28,23 +28,27 @@ module.exports = {
           email: email
         }
       })
+      console.log(user)
       if (!user) {
         res.status(403).send({
           error: 'Credentials are invalid'
         })
       }
 
-      if (password !== user.password) {
+      if (await user.comparePassword(password)) {
         res.status(403).send({
           error: 'Credentials are invalid'
         })
       }
 
+      const userJson = user.toJSON()
+
       res.send({
-        user: user.toJSON(),
-        token: jwtSingUser(user.toJSON())
+        user: userJson,
+        token: jwtSingUser(userJson)
       })
     } catch (error) {
+      console.log(error)
       res.status(500).send({
         message: 'Error occurred while trying to log in',
         error: error
