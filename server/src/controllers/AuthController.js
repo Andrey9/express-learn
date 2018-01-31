@@ -28,23 +28,28 @@ module.exports = {
           email: email
         }
       })
+
       if (!user) {
         res.status(403).send({
-          error: 'Credentials are invalid'
+          error: 'User with such email wasn\'t found'
+        })
+      }
+      const isPassCorrect = user.comparePassword(password)
+
+      if (!isPassCorrect) {
+        res.status(403).send({
+          error: 'Incorrect password'
         })
       }
 
-      if (password !== user.password) {
-        res.status(403).send({
-          error: 'Credentials are invalid'
-        })
-      }
+      const userJson = user.toJSON()
 
       res.send({
-        user: user.toJSON(),
-        token: jwtSingUser(user.toJSON())
+        user: userJson,
+        token: jwtSingUser(userJson)
       })
     } catch (error) {
+      console.log(error)
       res.status(500).send({
         message: 'Error occurred while trying to log in',
         error: error
