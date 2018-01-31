@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <router-view/>
+    <v-app>
+      <v-container >
+        <page-header></page-header>
+        <router-view/>
+      </v-container>
+    </v-app>
   </div>
 </template>
 
 <script>
+import PageHeader from './components/PageHeader'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    PageHeader
+  }
 }
 </script>
 
