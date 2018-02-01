@@ -20,7 +20,13 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  userInfo: []
+  userInfo: {
+    firstName: String,
+    lastName: String,
+    phone: String,
+    birthDate: Date,
+    avatar: String
+  }
 }, {timestamps: true})
 
 UserSchema.pre('save', function (next) {

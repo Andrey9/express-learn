@@ -21,10 +21,12 @@ module.exports = {
 
   async testuser (req, res, next) {
     try {
-      const user = await User.create({
+      const user = new User({
         email: 'email@example.com',
         password: 'secret'
       })
+
+      await user.save()
 
       res.json({
         user: user.toJSON(),
