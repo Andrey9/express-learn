@@ -1,11 +1,5 @@
-#express_node:
-#  container_name: express_node
-#  build: ./docker/node
-#  volumes:
-#  links:
-#    - express_mongo:mongoDB
-express_test:
-  container_name: express_mongo
+express_rest:
+  container_name: rest_mongo
   image: mongo:latest
   volumes:
     - ./docker/mongo:/data/db
