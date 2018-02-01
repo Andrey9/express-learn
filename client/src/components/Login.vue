@@ -25,7 +25,7 @@
         </div>
         <div class="error" v-if="error">{{error}}</div>
         <br>
-        <v-btn class="blue darken-2" @click="register" dark>Login</v-btn>
+        <v-btn class="blue darken-2" @click="login" dark>Login</v-btn>
       </div>
     </v-flex>
   </v-layout>
@@ -43,12 +43,15 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthService.login({
+        const response = await AuthService.login({
           email: this.email,
           password: this.password
         })
+
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
       }

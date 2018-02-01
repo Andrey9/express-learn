@@ -19,17 +19,19 @@ module.exports = {
   register (req, res) {
   },
 
-  async testuser (req, res) {
-    const user = await User.create({
-      email: 'email@example.com',
-      password: 'secret'
-    })
+  async testuser (req, res, next) {
+    try {
+      const user = await User.create({
+        email: 'email@example.com',
+        password: 'secret'
+      })
 
-    console.log(user.toJSON())
-    res.json({
-      user: user.toJSON(),
-      message: 'saved'
-    })
+      res.json({
+        user: user.toJSON(),
+        message: 'saved'
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-
 }

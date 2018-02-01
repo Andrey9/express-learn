@@ -5,6 +5,6 @@ const passport = require('../config/passport')
 
 router.post('/login', passport.authenticate('local', {session: false}), AuthController.login)
 router.post('/register', AuthController.register)
-// router.get('/testuser', AuthController.testuser)
+router.post('/testuser', AuthController.testuser)
 
 module.exports = router

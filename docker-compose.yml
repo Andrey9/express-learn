@@ -1,5 +1,5 @@
-express_test:
-  container_name: express_mongo
+express_rest:
+  container_name: rest_mongo
   image: mongo:latest
   volumes:
     - ./docker/mongo:/data/db
