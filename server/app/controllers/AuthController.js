@@ -22,7 +22,7 @@ module.exports = {
   async testuser (req, res, next) {
     try {
       const user = new User({
-        email: 'email@example.com',
+        email: 'nessw@example.com',
         password: 'secret'
       })
 

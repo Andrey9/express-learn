@@ -1,16 +1,17 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const bCrypt = require('bcrypt')
 
 const encryptPassword = (password) => {
-  return bcrypt.genSalt(8)
-    .then(salt => bcrypt.hash(password, salt))
+  return bCrypt.genSalt(8)
+    .then(salt => bCrypt.hash(password, salt))
 }
 
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    index: true
+    index: true,
+    required: true
   },
   password: {
     type: String,
@@ -29,20 +30,21 @@ const UserSchema = new mongoose.Schema({
   }
 }, {timestamps: true})
 
-UserSchema.pre('save', function (next) {
-  const user = this
+UserSchema.methods.comparePass = async function (password) {
+  return bCrypt.compare(password, this.password)
+}
 
-  if (!user.isModified('password')) {
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
     return next()
   }
 
-  user.password = encryptPassword(user.password)
+  this.password = await encryptPassword(this.password)
   next()
 })
 
 if (!UserSchema.options.toJSON) UserSchema.options.toJSON = {}
 UserSchema.options.toJSON.transform = function (doc, ret, options) {
-  delete ret.isAdmin
   delete ret.password
   return ret
 }

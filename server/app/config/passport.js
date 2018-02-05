@@ -12,8 +12,9 @@ passport.use(new LocalStrategy({
   if (!user) {
     return done(null, false)
   }
+  const isPassCorrect = await user.comparePass(password)
 
-  if (password !== user.password) {
+  if (!isPassCorrect) {
     return done(null, false)
   }
 
