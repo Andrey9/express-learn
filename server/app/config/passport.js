@@ -23,8 +23,6 @@ passport.use(new LocalStrategy({
   }
 
   const userJson = user.toJSON()
-
-  console.log(userJson)
   done(null, userJson)
 }))
 

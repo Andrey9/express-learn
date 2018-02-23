@@ -24,8 +24,9 @@ module.exports = {
         password: password,
         userInfo: userInfo
       })
-      const result = await user.save()
-      console.log('saving result', result)
+
+      await user.save()
+
       res.json({
         user: user.toJSON(),
         token: generateToken(user.toJSON())

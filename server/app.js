@@ -5,6 +5,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const config = require('./app/config/config')
 
 const passport = require('./app/config/passport')
 
@@ -22,6 +23,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+const MongooseSetup = require('./app/config/mongoose')
+MongooseSetup(config.db)
+  .catch(error => {
+    console.log(error, 'Database connection failed on startup')
+  })
 
 app.use(passport.initialize())
 require('./app/routes/index')(app)
