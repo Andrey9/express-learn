@@ -1,7 +1,7 @@
 <template>
   <v-toolbar dark color="primary" class="blue darken-2" fixed>
     <v-toolbar-title class="white--text">Express Vue App</v-toolbar-title>
-    <router-link :to="{name: 'helloworld'}">
+    <router-link :to="{name: 'home'}">
       <v-btn icon>
         <v-icon large>home</v-icon>
       </v-btn>

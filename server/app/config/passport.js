@@ -10,12 +10,16 @@ passport.use(new LocalStrategy({
   const user = await User.findOne({email: email}).select('+password')
 
   if (!user) {
-    return done(null, false)
+    const err = new Error('User with such email not found')
+    err.status = 401
+    return done(err, false)
   }
   const isPassCorrect = await user.comparePass(password)
 
   if (!isPassCorrect) {
-    return done(null, false)
+    const err = new Error('Password is incorrect')
+    err.status = 401
+    done(err, false)
   }
 
   const userJson = user.toJSON()

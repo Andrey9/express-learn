@@ -3,6 +3,6 @@ module.exports = {
   port: process.env.PORT || 8081,
   jwt: {
     secret: process.env.JWT_SECRET || 'express-rest-jwt-secret',
-    expires: process.env.JWT_EXPIRES || 120
+    expires: process.env.JWT_EXPIRES || 1200
   }
 }

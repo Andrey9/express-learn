@@ -12,7 +12,6 @@
             id="email"
             type="email"
             v-model="email"
-            @input="clearError"
           ></v-text-field>
           <v-text-field
             name="password"
@@ -20,7 +19,6 @@
             id="password"
             type="password"
             v-model="password"
-            @input="clearError"
           ></v-text-field>
         </div>
         <div class="error" v-if="error">{{error}}</div>
@@ -53,11 +51,8 @@ export default {
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
-        this.error = error.response.data.error
+        console.log(error)
       }
-    },
-    clearError () {
-      this.error = null
     }
   }
 }

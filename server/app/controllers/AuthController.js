@@ -10,30 +10,28 @@ const generateToken = (user) => {
 
 module.exports = {
   login (req, res) {
-    res.send({
+    res.json({
       user: req.user,
       token: generateToken(req.user)
     })
   },
 
-  register (req, res) {
-  },
-
-  async testuser (req, res, next) {
+  async register (req, res, next) {
     try {
+      const {email, password, ...userInfo} = req.body
       const user = new User({
-        email: 'nessw@example.com',
-        password: 'secret'
+        email: email,
+        password: password,
+        userInfo: userInfo
       })
-
-      await user.save()
-
+      const result = await user.save()
+      console.log('saving result', result)
       res.json({
         user: user.toJSON(),
-        message: 'saved'
+        token: generateToken(user.toJSON())
       })
-    } catch (error) {
-      next(error)
+    } catch (err) {
+      next(err)
     }
   }
 }
