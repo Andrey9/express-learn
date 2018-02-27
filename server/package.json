@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www --exec \"npm run lint && node\"",
+    "seed": "node ./database/dbSeeder.js",
     "lint": "eslint ./app/**/*.js",
     "test": "jest"
   },
@@ -35,6 +36,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "faker": "^4.1.0",
     "jest": "^22.4.2",
     "mongodb-memory-server": "^1.7.0"
   }
