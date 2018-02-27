@@ -8,7 +8,6 @@ const cors = require('cors')
 const config = require('./app/config/config')
 
 const passport = require('./app/config/passport')
-
 const app = express()
 
 // view engine setup
