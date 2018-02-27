@@ -1,7 +1,9 @@
 const Joi = require('joi')
 module.exports = (schema) => {
   return (req, res, next) => {
-    const result = Joi.validate(req.body, schema, {abortEarly: false})
+    const input = req.body || {}
+
+    const result = Joi.validate(input, schema, {abortEarly: false})
 
     if (result.error) {
       result.error.status = 400

@@ -5,7 +5,7 @@ const {jwt} = require('../config/config')
 const expressJWT = require('express-jwt')
 const authenticate = expressJWT({secret: jwt.secret})
 const Request = require('../middleware/requestValidation')
-const UserValidator = require('../middleware/validators/UserValidator')
+const UserValidator = require('../middleware/schemas/UserValidator')
 
 /* Controllers */
 const AuthController = require('../controllers/AuthController')
