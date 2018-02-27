@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const passport = require('../config/passport')
-const {jwt} = require('../config/config')
+const passport = require('../../config/passport')
+const {jwt} = require('../../config/config')
 const expressJWT = require('express-jwt')
 const authenticate = expressJWT({secret: jwt.secret})
-const Request = require('../middleware/requestValidation')
-const UserValidator = require('../middleware/schemas/UserValidator')
+const Request = require('../../middleware/requestValidation')
+const UserValidator = require('../../middleware/schemas/UserValidator')
 
 /* Controllers */
-const AuthController = require('../controllers/AuthController')
-const UserController = require('../controllers/UserController')
+const AuthController = require('../../controllers/AuthController')
+const UserController = require('../../controllers/UserController')
 
 /* GET users listing. */
 router.get('/users', authenticate, UserController.index)
