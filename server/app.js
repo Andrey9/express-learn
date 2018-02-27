@@ -22,14 +22,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(passport.initialize())
 
+// database connection setup
 const MongooseSetup = require('./app/config/mongoose')
 MongooseSetup(config.db)
   .catch(error => {
     console.log(error, 'Database connection failed on startup')
   })
 
-app.use(passport.initialize())
 require('./app/routes/routes')(app)
 
 // catch 404 and forward to error handler
