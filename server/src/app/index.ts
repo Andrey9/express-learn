@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
 import { IApp } from './interfaces/IApp';
+import { CONTROLLERS } from './controllers';
 
 export class App implements IApp {
   private app: express.Application;
@@ -13,6 +14,7 @@ export class App implements IApp {
 
   public init (): express.Application {
     this.setMiddlewares();
+    this.setRoutes();
     return this.app;
   }
 
@@ -22,5 +24,11 @@ export class App implements IApp {
     this.app.use(json());
     this.app.use(urlencoded({ extended: false }));
     // this.app.use(passport.initialize());
+  }
+
+  private setRoutes () {
+    for (const controller of CONTROLLERS) {
+      controller.init(this.app);
+    }
   }
 }
