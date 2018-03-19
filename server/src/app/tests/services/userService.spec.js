@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const MongodbMemoryServer = require('mongodb-memory-server').default
-const User = require('../../models/user')
-const UserService = require('../../services/userService')
+const User = require('../../models/User')
+const UserService = require('../../services/UserService')
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000
 

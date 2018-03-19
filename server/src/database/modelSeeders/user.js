@@ -1,5 +1,5 @@
 const faker = require('faker')
-const User = require('../../app/models/user')
+const User = require('../../app/models/User')
 
 module.exports = async (count) => {
   console.log('User seeder')
