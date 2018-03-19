@@ -1,5 +1,6 @@
 import http from 'http';
 import { IApp } from './app/interfaces/IApp';
+import { Database } from './app/config/mongoose';
 
 export class Server {
   private server: http.Server;
@@ -11,6 +12,8 @@ export class Server {
   }
 
   public start () {
+    const db = new Database();
+    db.connect();
     this.server.listen(this.port);
     console.log(`Server running on port ${this.port}`);
   }
