@@ -1,24 +1,12 @@
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
+import { IUserModel } from '../interfaces/models/IUser';
+
 
 const encryptPassword = (password: string) => {
   return bcrypt.genSalt(8)
     .then(salt => bcrypt.hash(password, salt));
 };
-
-export interface IUserModel extends Document {
-  email: string;
-  password: string;
-  isAdmin: boolean;
-  userInfo: {
-    firstName: string,
-    lastName: string,
-    phone: string,
-    birthDate: Date,
-    avatar: string
-  };
-  comparePass (password: string): boolean;
-}
 
 const schema = new Schema({
   email: {
