@@ -6,7 +6,7 @@
     "start": "node ./build/index.js",
     "build": "rimraf ./build/ && tsc",
     "dev": "nodemon",
-    "lint": "tslint --project tsconfig.json ./src/**/*.ts",
+    "lint": "tslint -c tslint.json --project tsconfig.json 'src/**/*.ts'",
     "fix": "npm run lint -- --fix",
     "test": "jest"
   },
