@@ -1,0 +1,7 @@
+{
+  "ext": "ts",
+  "watch": [
+    "./src/"
+  ],
+  "exec": "npm run lint || exit 1 && ts-node --typeCheck src/index.ts"
+}

@@ -1,0 +1,14 @@
+{
+    "defaultSeverity": "error",
+    "extends": "tslint-config-airbnb",
+    "jsRules": {},
+    "rules": {
+        "semicolon": true,
+        "space-before-function-paren": [true, "always"],
+        "trailing-comma": false,
+        "align": false,
+        "variable-name": [true, "ban-keywords", "allow-pascal-case"],
+        "no-trailing-whitespace": true
+    },
+    "rulesDirectory": []
+}
