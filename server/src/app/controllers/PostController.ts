@@ -1,6 +1,6 @@
 import { IController } from '../interfaces/IController';
 import { Application, NextFunction, Request, Response } from 'express';
-import { PostService } from '../services/PostService';
+import { PostService } from '../services';
 import { validateInput } from '../middleware/RequestValidation';
 import { PostValidator } from '../middleware/schemas/PostValidator';
 import { auth } from '../middleware/Authentication';

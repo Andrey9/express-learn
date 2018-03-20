@@ -1,6 +1,6 @@
 import { IController } from '../interfaces/IController';
 import { Application, Request, Response, NextFunction } from 'express';
-import { UserService } from '../services/UserService';
+import { UserService } from '../services';
 
 export class UserController implements IController {
   public init (app: Application): void {
