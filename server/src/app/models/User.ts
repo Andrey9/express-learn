@@ -45,4 +45,4 @@ schema.pre('save', async function (this: IUserModel, next) {
   next();
 });
 
-export default model<IUserModel>('User', schema);
+export const User =  model<IUserModel>('User', schema);

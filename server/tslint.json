@@ -5,7 +5,9 @@
     "rules": {
         "semicolon": true,
         "space-before-function-paren": [true, "always"],
-        "trailing-comma": false
+        "trailing-comma": false,
+        "align": false,
+        "variable-name": [true, "ban-keywords", "allow-pascal-case"]
     },
     "rulesDirectory": []
 }

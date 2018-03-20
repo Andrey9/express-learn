@@ -7,6 +7,6 @@ passport.use(
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: false
-  },           UserService.signIn));
+  }, UserService.signIn));
 
 export default passport;

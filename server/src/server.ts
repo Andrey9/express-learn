@@ -12,9 +12,13 @@ export class Server {
   }
 
   public start () {
-    const db = new Database();
-    db.connect();
-    this.server.listen(this.port);
-    console.log(`Server running on port ${this.port}`);
+    try {
+      const db = new Database();
+      db.connect();
+      this.server.listen(this.port);
+      console.log(`Server running on port ${this.port}`);
+    } catch (error) {
+      console.log('Database connection failed on startup.');
+    }
   }
 }

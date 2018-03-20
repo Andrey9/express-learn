@@ -19,6 +19,17 @@ export class App implements IApp {
     this.setRoutes();
     this.app.use(this.notFoundHandler);
     this.app.use(this.errorHandler);
+    // this.app.use((
+    //   err: any,
+    //   req: express.Request,
+    //   res: express.Response,
+    //   next: express.NextFunction
+    // ) => {
+    //   const error = req.app.get('env') === 'development' ? err : {};
+    //   const message = err.message;
+    //   const status: number = err.status ? err.status : 500;
+    //   res.status(status).json({ message, error });
+    // });
     return this.app;
   }
 
@@ -31,25 +42,31 @@ export class App implements IApp {
   }
 
   private setRoutes () {
-    for (const controller of CONTROLLERS) {
+    CONTROLLERS.forEach((controller) => {
       controller.init(this.app);
-    }
+    });
   }
 
   private notFoundHandler (
-    res: express.Request,
-    req: express.Response,
+    req: express.Request,
+    res: express.Response,
     next: express.NextFunction
   ) {
     const err = new HttpError(404,'Not Found');
-    next(err);
+    return next(err);
   }
 
-  private errorHandler (err: any, req: express.Request, res: express.Response) {
+  private errorHandler (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
     const error = req.app.get('env') === 'development' ? err : {};
     const message = err.message;
+    const stack = error.stack;
     const status: number = err.status ? err.status : 500;
-    res.status(status);
-    res.json({ message, error });
+    console.log('error stack', error.stack);
+    return res.status(status).json({ message, error, stack });
   }
 }
