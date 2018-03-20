@@ -1,4 +1,4 @@
-const requestValidation = require('../../middleware/requestValidation')
+const requestValidation = require('../../middleware/RequestValidation')
 const Joi = require('joi')
 
 describe('Request validation middleware', () => {

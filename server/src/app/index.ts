@@ -6,6 +6,7 @@ import { json, urlencoded } from 'body-parser';
 import { IApp } from './interfaces/IApp';
 import { CONTROLLERS } from './controllers';
 import { HttpError } from './errors/HttpError';
+import { ValidationError } from 'joi';
 
 export class App implements IApp {
   private app: express.Application;
@@ -19,17 +20,6 @@ export class App implements IApp {
     this.setRoutes();
     this.app.use(this.notFoundHandler);
     this.app.use(this.errorHandler);
-    // this.app.use((
-    //   err: any,
-    //   req: express.Request,
-    //   res: express.Response,
-    //   next: express.NextFunction
-    // ) => {
-    //   const error = req.app.get('env') === 'development' ? err : {};
-    //   const message = err.message;
-    //   const status: number = err.status ? err.status : 500;
-    //   res.status(status).json({ message, error });
-    // });
     return this.app;
   }
 
@@ -66,7 +56,6 @@ export class App implements IApp {
     const message = err.message;
     const stack = error.stack;
     const status: number = err.status ? err.status : 500;
-    console.log('error stack', error.stack);
     return res.status(status).json({ message, error, stack });
   }
 }
