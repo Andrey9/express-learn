@@ -4,7 +4,6 @@ import { Application, Request, Response, NextFunction } from 'express';
 import passport from '../config/passport';
 import { validateInput } from '../middleware/RequestValidation';
 import { UserValidator } from '../middleware/schemas';
-import { User } from '../models';
 
 export class AuthController implements IController {
   init (app: Application) {
@@ -26,14 +25,7 @@ export class AuthController implements IController {
 
   private async register (req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, password, ...userInfo } = req.body;
-      const user = new User({
-        email,
-        password,
-        userInfo
-      });
-
-      await user.save();
+      const user = await UserService.createUser(req.body);
 
       res.json({
         user: user.toJSON(),

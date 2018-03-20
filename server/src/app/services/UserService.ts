@@ -2,8 +2,18 @@ import { User } from '../models';
 import { HttpError } from '../errors/HttpError';
 import jsonwebtoken from 'jsonwebtoken';
 import config from '../config/config';
+import { IUserModel } from '../interfaces/models/IUser';
 
 export class UserService {
+  public static createUser (input: IUserModel) {
+    const user = new User(input);
+
+    return user.save();
+  }
+
+  public static getAllUsers () {
+    return User.find({});
+  }
   /**
    * Function for signing in user by credentials
    * Check if user with given email exists in DB
@@ -19,7 +29,6 @@ export class UserService {
 
     if (!user) {
       const err = new HttpError(401,'User with such email not found');
-      console.log('asdasdasdad');
       return done(err, false);
     }
     const isPassCorrect = await user.comparePass(password);
@@ -30,6 +39,7 @@ export class UserService {
     }
 
     const userJson = user.toJSON();
+    delete userJson.password;
     return done(null, userJson);
   }
 

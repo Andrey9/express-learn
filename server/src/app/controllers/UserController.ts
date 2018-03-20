@@ -1,14 +1,16 @@
 import { IController } from '../interfaces/IController';
 import { Application, Request, Response, NextFunction } from 'express';
+import { UserService } from '../services/UserService';
 
 export class UserController implements IController {
   public init (app: Application): void {
-    app.get('/', this.index);
+    app.get('/users', this.index);
   }
 
-  private index (req: Request, res: Response, next: NextFunction) {
+  private async index (req: Request, res: Response, next: NextFunction) {
     try {
-      res.status(200).json({ message: 'Hello world!' });
+      const users = await UserService.getAllUsers();
+      res.status(200).json({ users });
     } catch (err) {
       next(err);
     }
