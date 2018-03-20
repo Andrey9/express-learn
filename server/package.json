@@ -1,6 +1,6 @@
 {
-  "name": "express-rest",
-  "version": "0.0.0",
+  "name": "express-api",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "start": "node ./build/index.js",
