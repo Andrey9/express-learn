@@ -16,6 +16,7 @@ export class App implements IApp {
   }
 
   public init (): express.Application {
+    this.app.set('tz', 'GMT+2');
     this.setMiddlewares();
     this.setRoutes();
     this.app.use(this.notFoundHandler);
