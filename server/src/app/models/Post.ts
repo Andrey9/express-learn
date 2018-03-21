@@ -9,7 +9,8 @@ const schema = new Schema({
     index: true
   },
   content: String,
-  author: { type: Schema.Types.ObjectId, ref: 'User' }
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 }, { timestamps: true });
 
 schema.pre('save', function (this: IPostModel, next) {

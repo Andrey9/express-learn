@@ -8,7 +8,7 @@ export class PostService {
   }
 
   public static async getOnePost (id: string): Promise<IPostModel> {
-    const post = await Post.findOne({ id }).populate('author');
+    const post = await Post.findOne({ id }).populate('comments').populate('author');
 
     if (!post) {
       throw new HttpError(404, 'Post not found');
