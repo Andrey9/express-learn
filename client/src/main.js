@@ -8,6 +8,9 @@ import 'vuetify/dist/vuetify.min.css';
 import {sync} from 'vuex-router-sync';
 import store from './store/store';
 
+store.subscribe((mutation, state) => {
+  localStorage.setItem('store', JSON.stringify(state));
+});
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
 sync(store, router);
@@ -18,5 +21,8 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  beforeCreate () {
+    this.$store.commit('initStore');
+  }
 });

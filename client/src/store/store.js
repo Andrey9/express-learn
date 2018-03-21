@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setToken (state, token) {
-      state.token = `Bearer ${token}`;
+      state.token = token ? `Bearer ${token}` : null;
       state.isUserLoggedIn = !!(token);
     },
     setUser (state, user) {
@@ -24,6 +24,12 @@ export default new Vuex.Store({
     },
     removeMessage (state, message) {
       state.messages.splice(message, 1);
+    },
+    initStore (state) {
+      console.log(state);
+      if (localStorage.getItem('store')) {
+        this.replaceState(Object.assign(state, JSON.parse(localStorage.getItem('store'))));
+      }
     }
   },
   actions: {
@@ -32,7 +38,7 @@ export default new Vuex.Store({
       commit('addMessage', messageItem);
       setTimeout(() => {
         commit('removeMessage', messageItem);
-      }, 3000);
+      }, 5000);
     }
   }
 });
