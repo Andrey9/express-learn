@@ -6,8 +6,8 @@ export interface IUserModel extends Document {
   isAdmin: boolean;
   firstName: string;
   lastName: string;
-  phone: string;
-  birthDate: Date;
-  avatar: string;
+  phone: string | null;
+  birthDate: Date | null;
+  avatar: string | null;
   comparePass (password: string): boolean;
 }

@@ -23,9 +23,18 @@ const schema = new Schema({
   },
   firstName: String,
   lastName: String,
-  phone: String,
-  birthDate: Date,
-  avatar: String
+  phone: {
+    type: String,
+    default: null
+  },
+  birthDate: {
+    type: Date,
+    default: null
+  },
+  avatar: {
+    type: String,
+    default: null
+  }
 },{ timestamps: true });
 
 schema.methods.comparePass = async function (password: string) {

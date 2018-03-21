@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
+import Vue from 'vue';
+import Router from 'vue-router';
+import HelloWorld from '../components/pages/HelloWorld';
+import Login from '../components/pages/Login';
+import Register from '../components/pages/Register';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -24,4 +24,4 @@ export default new Router({
       component: Register
     }
   ]
-})
+});

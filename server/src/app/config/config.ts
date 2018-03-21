@@ -3,7 +3,7 @@ export default {
     process.env.MONGO_CONNECTION :
     'mongodb://localhost:27017/expressRestDB',
   testDB: 'mongodb://localhost:27017/test',
-  port: process.env.PORT ? +process.env.PORT : 8000,
+  port: process.env.PORT ? +process.env.PORT : 8001,
   jwt: {
     secret: process.env.JWT_SECRET ?
       process.env.JWT_SECRET :
