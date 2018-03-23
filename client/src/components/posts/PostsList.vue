@@ -4,7 +4,7 @@
       <v-card v-for="(post, key) in posts" :key="key" class="card">
         <v-card-title primary-title>{{ post.title }}</v-card-title>
         <v-card-actions>
-          <v-btn class="blue darken-2" dark >Show</v-btn>
+          <v-btn class="blue darken-2" dark :to="'/posts/' + post._id">Show</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>

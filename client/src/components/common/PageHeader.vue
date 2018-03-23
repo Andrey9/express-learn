@@ -12,7 +12,17 @@
           <v-btn flat dark to="/register">Sign up</v-btn>
         </template>
         <template v-else>
-          <v-btn flat dark @click="logout">Log out</v-btn>
+          <v-menu offset-y>
+            <v-btn flat dark slot="activator">{{ `${$store.state.user.firstName} ${$store.state.user.lastName}` }}</v-btn>
+            <v-list>
+              <v-list-tile to="/posts/new">
+                <v-list-tile-title>Add new post</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile @click="logout">
+                <v-list-tile-title>Log out</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
         </template>
       </v-toolbar-items>
     </v-toolbar>

@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../components/posts/Home';
+import PostsList from '../components/posts/PostsList';
 import Login from '../components/user/Login';
 import Register from '../components/user/Register';
+import Post from '../components/posts/Post';
 
 Vue.use(Router);
 
@@ -12,7 +13,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: PostsList
+    },
+    {
+      path: '/posts/:id',
+      name: 'post',
+      component: Post
     },
     {
       path: '/login',

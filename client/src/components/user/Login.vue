@@ -32,13 +32,6 @@ export default {
       }
     };
   },
-  computed: {
-    isValid () {
-      return !this.$children.some(item => {
-        return item.valid !== undefined && item.valid === false;
-      });
-    }
-  },
   methods: {
     async login () {
       const isValid = await this.$validator.validateAll();
@@ -53,7 +46,7 @@ export default {
 
         this.$store.commit('setToken', response.data.token);
         this.$store.commit('setUser', response.data.user);
-        bus.flash('You have logged in', 'success');
+        bus.flash(`Hello ${response.data.user.firstName}!`, 'success');
         this.$router.push('/');
       } catch (error) {
         console.log(error);
