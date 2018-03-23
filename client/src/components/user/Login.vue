@@ -7,9 +7,11 @@
         </v-toolbar>
         <div class="pl-4 pr-4 pt-2 pb-2">
           <v-text-field name="email" label="Email" id="email" type="email"
-                        v-model="email" :rules="[rules.required, rules.email]"/>
+                        v-model="email" v-validate="'required|email'"
+                        :error-messages="errors.collect('email')"/>
           <v-text-field name="password" label="Password" id="password" type="password"
-                        v-model="password" :rules="[rules.required]" />
+                        v-model="password" v-validate="'required'"
+                        :error-messages="errors.collect('password')"/>
         </div>
         <v-btn class="blue darken-2" @click="login" dark>Login</v-btn>
       </div>
@@ -19,22 +21,13 @@
 
 <script>
 import AuthService from '../../services/AuthService';
+import bus from '../../store/eventBus';
+
 export default {
-  name: 'register',
   data () {
     return {
       email: '',
-      password: '',
-      error: null
-    };
-  },
-  created () {
-    this.rules = {
-      required: (value) => !!value || 'Required',
-      email: (value) => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || 'Invalid email';
-      }
+      password: ''
     };
   },
   computed: {
@@ -60,17 +53,12 @@ export default {
 
         this.$store.commit('setToken', response.data.token);
         this.$store.commit('setUser', response.data.user);
-        this.$store.dispatch('addMessage', { type: 'success', message: 'You have logged in successfully' });
+        bus.flash('You have logged in successfully', 'success');
         this.$router.push('/');
       } catch (error) {
         console.log(error);
-        this.$store.dispatch('addMessage', { type: 'error', message: error.response.data.message });
+        bus.flash(error.response.data.message, 'error');
       }
-    },
-    validateFields () {
-      this.$children.forEach(item => {
-        item.shouldValidate = true;
-      });
     }
   }
 };

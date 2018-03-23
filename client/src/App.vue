@@ -2,23 +2,23 @@
   <div id="app">
     <v-app>
       <v-container >
-        <page-header/>
+        <app-header/>
         <router-view/>
-        <flash-messages/>
+        <app-flash/>
       </v-container>
     </v-app>
   </div>
 </template>
 
 <script>
-import PageHeader from './components/partials/PageHeader';
-import FlashMessages from './components/partials/FlashMessages';
+import PageHeader from './components/common/PageHeader';
+import FlashMessages from './components/common/FlashMessages';
 
 export default {
   name: 'App',
   components: {
-    PageHeader,
-    FlashMessages
+    appHeader: PageHeader,
+    appFlash: FlashMessages
   }
 };
 </script>
@@ -31,7 +31,6 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
-
   #app .top-120 {
     margin-top: 120px;
   }

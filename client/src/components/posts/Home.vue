@@ -13,9 +13,9 @@
 
 <script>
 import PostService from '../../services/PostService';
+import bus from '../../store/eventBus';
 
 export default {
-  name: 'home',
   data () {
     return {
       posts: []
@@ -26,14 +26,12 @@ export default {
       const result = await PostService.getPosts();
       this.posts = result.data;
     } catch (error) {
-      console.log(error);
-      this.$store.dispatch('addMessage', { type: 'error', message: 'Whoops! Something went wrong' });
+      bus.flash('Whoops! Something went wrong', 'error');
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .card {
     margin-top: 20px;

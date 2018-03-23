@@ -8,17 +8,15 @@
         </v-btn>
       </router-link>
       <v-spacer></v-spacer>
-      <template v-if="!$store.state.isUserLoggedIn">
-        <router-link :to="{name: 'login'}">
-          <v-btn flat dark>Sign in</v-btn>
-        </router-link>
-        <router-link to="register" >
-          <v-btn flat dark>Sign up</v-btn>
-        </router-link>
-      </template>
-      <template v-else>
-        <v-btn flat dark @click="logout">Log out</v-btn>
-      </template>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <template v-if="!$store.state.isUserLoggedIn">
+          <v-btn flat dark @click="linkTo('/login')">Sign in</v-btn>
+          <v-btn flat dark @click="linkTo('/register')">Sign up</v-btn>
+        </template>
+        <template v-else>
+          <v-btn flat dark @click="logout">Log out</v-btn>
+        </template>
+      </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>
@@ -27,6 +25,9 @@
 export default {
   name: 'page-header',
   methods: {
+    linkTo (link) {
+      this.$router.push(link);
+    },
     logout () {
       this.$store.commit('setToken', null);
       this.$store.commit('setUser', null);
