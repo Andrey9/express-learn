@@ -7,6 +7,9 @@
         </v-toolbar>
         <post-form v-model="form" ref="form"/>
         <v-btn class="blue darken-2" dark @click="update">Update</v-btn>
+        <v-btn class="white darken-2"
+               style="color: black"
+               dark :to="`/posts/${id}`">Cancel</v-btn>
       </div>
     </v-flex>
   </v-layout>
@@ -20,6 +23,7 @@ import bus from '../../store/eventBus';
 export default {
   data () {
     return {
+      id: '',
       form: {
         title: '',
         content: ''
@@ -30,6 +34,7 @@ export default {
     try {
       const result = await PostService.getPostById(this.$route.params.id);
       console.log(result.data);
+      this.id = result.data._id;
       this.form.title = result.data.title;
       this.form.content = result.data.content;
       console.log(this.form);

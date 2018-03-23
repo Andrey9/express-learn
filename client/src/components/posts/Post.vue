@@ -8,6 +8,10 @@
         <v-card-text>
           <div>{{ post.content }}</div>
         </v-card-text>
+        <v-card-actions>
+          <v-btn flat dark class="blue darken-2" :to="`/posts/${post._id}/edit`">Edit</v-btn>
+          <v-btn flat dark class="red darken-2" :to="`/posts/${post._id}`">Delete</v-btn>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>

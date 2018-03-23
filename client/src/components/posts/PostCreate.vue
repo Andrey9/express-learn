@@ -7,6 +7,9 @@
         </v-toolbar>
         <post-form v-model="form" ref="form"/>
         <v-btn class="blue darken-2" dark @click="create">Create</v-btn>
+        <v-btn class="white darken-2"
+               style="color: black"
+               dark to="/">Cancel</v-btn>
       </div>
     </v-flex>
   </v-layout>
