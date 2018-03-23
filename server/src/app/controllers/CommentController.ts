@@ -18,7 +18,7 @@ export class CommentController implements IController {
 
   private async create (req: Request, res: Response, next: NextFunction) {
     try {
-      const post = await PostService.getOnePost(req.query.post_id);
+      const post = await PostService.getOnePost(req.params.post_id);
       const user = req.user ? req.user : {};
       const comment = await CommentService.createComment({ ...req.body, author: user._id }, post);
       res.json(comment);
@@ -29,7 +29,7 @@ export class CommentController implements IController {
 
   private async update (req: Request, res: Response, next: NextFunction) {
     try {
-      const comment = await CommentService.updateComment(req.query.comment_id, req.body);
+      const comment = await CommentService.updateComment(req.params.comment_id, req.body);
       res.json(comment);
     } catch (error) {
       next(error);
@@ -38,7 +38,7 @@ export class CommentController implements IController {
 
   private async destroy (req: Request, res: Response, next: NextFunction) {
     try {
-      const comment = await CommentService.deleteComment(req.query.comment_id);
+      const comment = await CommentService.deleteComment(req.params.comment_id);
       res.json(comment);
     } catch (error) {
       next(error);
