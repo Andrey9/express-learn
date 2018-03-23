@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     change (attr, value) {
-      console.log(value);
       this.form[attr] = value;
       this.$emit('input', this.form);
     }

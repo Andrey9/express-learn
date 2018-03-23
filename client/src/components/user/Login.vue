@@ -49,7 +49,6 @@ export default {
         bus.flash(`Hello ${response.data.user.firstName}!`, 'success');
         this.$router.push('/');
       } catch (error) {
-        console.log(error);
         bus.flash(error.response.data.message, 'error');
       }
     }

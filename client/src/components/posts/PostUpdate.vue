@@ -33,11 +33,9 @@ export default {
   async mounted () {
     try {
       const result = await PostService.getPostById(this.$route.params.id);
-      console.log(result.data);
       this.id = result.data._id;
       this.form.title = result.data.title;
       this.form.content = result.data.content;
-      console.log(this.form);
     } catch (error) {
       bus.flash('Whoops! Something went wrong', 'error');
     }
