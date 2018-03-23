@@ -29,6 +29,7 @@ export default {
       this.post = result.data;
     } catch (err) {
       bus.flash('Whoops! Something went wrong', 'error');
+      this.$router.push('/404');
     }
   }
 };

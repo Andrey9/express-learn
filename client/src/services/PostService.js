@@ -6,5 +6,11 @@ export default {
   },
   getPostById (id) {
     return Api().get(`/posts/${id}`);
+  },
+  create (data) {
+    return Api().post('/posts', data);
+  },
+  update (id, data) {
+    return Api().put(`/posts/${id}`, data);
   }
 };

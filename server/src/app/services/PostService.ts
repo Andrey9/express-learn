@@ -29,7 +29,8 @@ export class PostService {
 
   public static async updatePost (id: string, input: IPostModel): Promise<IPostModel> {
     this.checkId(id);
-    const post = await Post.findById({ id });
+    console.log(id);
+    const post = await Post.findById(id);
 
     if (!post) {
       throw new HttpError(404, 'Post not found');
@@ -53,5 +54,6 @@ export class PostService {
 
   private static checkId (id: string) {
     if (!ObjectID.isValid(id)) throw new HttpError(404, 'Post not found');
+    return true;
   }
 }
