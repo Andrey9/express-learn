@@ -19,7 +19,7 @@
                         v-model="form.password" v-validate="'required|min:6'"
                         :error-messages="errors.collect('password')"/>
           <v-text-field name="password_confirmation" label="Repeat password" id="password_confirmation" type="password"
-                        v-model="form.password_confirmation" v-validate="'required|confirmed:password'" data-vv-as="password confirmation"
+                        v-model="form.password_confirmation" v-validate="'required|confirmed:password'" data-vv-as="password"
                         :error-messages="errors.collect('password_confirmation')"/>
         </div>
         <v-btn class="blue darken-2" @click="register" dark>Register</v-btn>
@@ -47,55 +47,24 @@ export default {
       }
     };
   },
-  created () {
-    this.rules = {
-      required: (value) => !!value || 'Required',
-      email: (value) => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || 'Invalid email';
-      },
-      min: (length) => {
-        return (value) => {
-          return value.length >= length || `Should contain at least than ${length} symbols`;
-        };
-      },
-      confirm: (check) => {
-        return (value) => {
-          return check === value || 'Passwords do not match';
-        };
-      }
-    };
-  },
-  computed: {
-    isValid () {
-      return !this.$children.some(item => {
-        return item.valid !== undefined && item.valid === false;
-      });
-    }
-  },
   methods: {
     async register () {
-      if (!this.isValid) {
-        this.validateFields();
-        this.$store.dispatch('addMessage', { type: 'error', message: 'Fill required fields' });
+      const isValid = await this.$validator.validateAll();
+
+      if (!isValid) {
+        bus.flash('Fill required fields', 'error');
         return false;
       }
 
       try {
         const response = await AuthService.register(this.form);
-
         this.$store.commit('setToken', response.data.token);
         this.$store.commit('setUser', response.data.user);
-        bus.flash('You have registered successfully', 'success');
+        bus.flash('You have registered', 'success');
         this.$router.push('/');
       } catch (error) {
         bus.flash(error.response.data.message, 'error');
       }
-    },
-    validateFields () {
-      this.$children.forEach(item => {
-        item.shouldValidate = true;
-      });
     }
   }
 };

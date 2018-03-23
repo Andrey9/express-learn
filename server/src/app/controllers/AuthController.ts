@@ -1,9 +1,10 @@
 import { IController } from '../interfaces/IController';
-import { UserService } from '../services/UserService';
+import { UserService } from '../services';
 import { Application, Request, Response, NextFunction } from 'express';
 import passport from '../config/passport';
 import { validateInput } from '../middleware/RequestValidation';
 import { UserValidator } from '../middleware/schemas';
+import { HttpError } from '../errors/HttpError';
 
 export class AuthController implements IController {
   init (app: Application) {
@@ -32,7 +33,7 @@ export class AuthController implements IController {
         token: UserService.generateToken(user.toJSON())
       });
     } catch (err) {
-      next(err);
+      next(new HttpError(400, 'User with such email is registered now'));
     }
   }
 }

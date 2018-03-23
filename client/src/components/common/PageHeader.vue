@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import bus from '../../store/eventBus';
+
 export default {
   name: 'page-header',
   methods: {
@@ -31,6 +33,7 @@ export default {
     logout () {
       this.$store.commit('setToken', null);
       this.$store.commit('setUser', null);
+      bus.flash('You have logged out', 'success');
       this.$router.push({
         name: 'home'
       });

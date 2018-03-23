@@ -7,10 +7,10 @@
         </v-toolbar>
         <div class="pl-4 pr-4 pt-2 pb-2">
           <v-text-field name="email" label="Email" id="email" type="email"
-                        v-model="email" v-validate="'required|email'"
+                        v-model="form.email" v-validate="'required|email'"
                         :error-messages="errors.collect('email')"/>
           <v-text-field name="password" label="Password" id="password" type="password"
-                        v-model="password" v-validate="'required'"
+                        v-model="form.password" v-validate="'required'"
                         :error-messages="errors.collect('password')"/>
         </div>
         <v-btn class="blue darken-2" @click="login" dark>Login</v-btn>
@@ -26,8 +26,10 @@ import bus from '../../store/eventBus';
 export default {
   data () {
     return {
-      email: '',
-      password: ''
+      form: {
+        email: '',
+        password: ''
+      }
     };
   },
   computed: {
@@ -39,21 +41,19 @@ export default {
   },
   methods: {
     async login () {
-      if (!this.isValid) {
-        this.validateFields();
-        this.$store.dispatch('addMessage', { type: 'error', message: 'Fill required fields' });
+      const isValid = await this.$validator.validateAll();
+
+      if (!isValid) {
+        bus.flash('Fill required fields', 'error');
         return false;
       }
 
       try {
-        const response = await AuthService.login({
-          email: this.email,
-          password: this.password
-        });
+        const response = await AuthService.login(this.form);
 
         this.$store.commit('setToken', response.data.token);
         this.$store.commit('setUser', response.data.user);
-        bus.flash('You have logged in successfully', 'success');
+        bus.flash('You have logged in', 'success');
         this.$router.push('/');
       } catch (error) {
         console.log(error);
