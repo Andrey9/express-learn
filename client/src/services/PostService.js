@@ -12,5 +12,8 @@ export default {
   },
   update (id, data) {
     return Api().put(`/posts/${id}`, data);
+  },
+  addComment (id, data) {
+    return Api().post(`/posts/${id}/comments`, data);
   }
 };

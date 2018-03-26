@@ -13,12 +13,14 @@
           <v-btn flat dark class="red darken-2" :to="`/posts/${post._id}`">Delete</v-btn>
         </v-card-actions>
       </v-card>
+      <comments-list :comments="post.comments" @addComment="addComment"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import PostService from '../../services/PostService';
+import CommentsList from './common/CommentsList';
 import bus from '../../store/eventBus';
 
 export default {
@@ -28,12 +30,29 @@ export default {
     };
   },
   async mounted () {
-    try {
-      const result = await PostService.getPostById(this.$route.params.id);
-      this.post = result.data;
-    } catch (err) {
-      bus.flash('Whoops! Something went wrong', 'error');
-      this.$router.push('/404');
+    this.loadPost();
+  },
+  components: {
+    CommentsList
+  },
+  methods: {
+    async loadPost () {
+      try {
+        const result = await PostService.getPostById(this.$route.params.id);
+        this.post = result.data;
+      } catch (err) {
+        bus.flash('Whoops! Something went wrong', 'error');
+        this.$router.push('/404');
+      }
+    },
+    async addComment (comment) {
+      try {
+        await PostService.addComment(this.$route.params.id, { comment });
+        bus.flash('Comment added', 'success');
+        this.loadPost();
+      } catch (error) {
+        bus.flash('Whoops! Something went wrong', 'error');
+      }
     }
   }
 };

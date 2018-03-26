@@ -5,7 +5,7 @@
         :error-messages="errors.collect('title')"
         @input="change('title', $event)"/>
     <v-text-field name="content" label="Content" id="content" type="text"
-        :value="value.content" v-validate="'required'"
+        :value="value.content" v-validate="'required'" multi-line
         :error-messages="errors.collect('content')"
         @input="change('content', $event)"/>
   </div>
