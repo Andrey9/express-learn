@@ -11,8 +11,15 @@ export class PostService {
   public static async getOnePost (id: string): Promise<IPostModel> {
     this.checkId(id);
     const post = await Post.findById(id)
-      .populate('comments')
-      .populate('author');
+      .populate('author')
+      .populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: {
+          path: 'author',
+          model: 'User'
+        }
+      });
 
     if (!post) {
       throw new HttpError(404, 'Post not found');
