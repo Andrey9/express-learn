@@ -2,7 +2,7 @@ import { ICommentModel } from '../interfaces/models/IComment';
 import { Comment } from '../models';
 import { IPostModel } from '../interfaces/models/IPost';
 import { HttpError } from '../errors/HttpError';
-import {ObjectID} from "bson";
+import { ObjectID } from 'bson';
 
 export class CommentService {
   public static async createComment (
