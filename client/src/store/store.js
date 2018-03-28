@@ -1,9 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
+  plugins: [createPersistedState()],
   strict: true,
   state: {
     token: null,
@@ -12,19 +14,13 @@ export default new Vuex.Store({
   },
   mutations: {
     setToken (state, token) {
-      state.token = `Bearer ${token}`
-      state.isUserLoggedIn = !!(token)
+      state.token = token ? `Bearer ${token}` : null;
+      state.isUserLoggedIn = !!(token);
     },
     setUser (state, user) {
-      state.user = user
-    }
-  },
-  actions: {
-    setToken ({commit}, token) {
-      commit('setToken', token)
-    },
-    setUser ({commit}, token) {
-      commit('setUser', token)
+      state.user = user;
     }
   }
-})
+});
+
+export default store;

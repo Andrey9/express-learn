@@ -1,13 +1,13 @@
-import axios from 'axios'
-import store from '../store/store'
+import axios from 'axios';
+import store from '../store/store';
 
 export default () => {
   return axios.create({
-    baseURL: 'http://localhost:8081/api/v1',
+    baseURL: 'http://localhost:8001/',
     headers: {
       common: {
         Authorization: store.state.token
       }
     }
-  })
-}
+  });
+};

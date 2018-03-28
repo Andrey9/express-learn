@@ -17,7 +17,7 @@ export class UserValidator {
     password_confirmation: Joi.string().alphanum().required().valid(Joi.ref('password')),
     firstName: Joi.string().alphanum().required(),
     lastName: Joi.string().alphanum().required(),
-    phone: Joi.string().min(6).max(12),
-    birthDate: Joi.date().max('now')
+    phone: Joi.string().min(6).max(12).allow(''),
+    birthDate: Joi.date().max('now').allow('')
   });
 }

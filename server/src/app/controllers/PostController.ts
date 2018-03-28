@@ -21,7 +21,7 @@ export class PostController implements IController {
 
   private async show (req: Request, res: Response, next: NextFunction) {
     try {
-      const post = await PostService.getOnePost(req.query.id);
+      const post = await PostService.getOnePost(req.params.id);
       res.json(post);
     } catch (error) {
       next(error);
@@ -41,7 +41,7 @@ export class PostController implements IController {
 
   private async update (req: Request, res: Response, next: NextFunction) {
     try {
-      const post = await PostService.updatePost(req.query.id, req.body);
+      const post = await PostService.updatePost(req.params.id, req.body);
 
       res.json(post);
     } catch (error) {
@@ -51,7 +51,7 @@ export class PostController implements IController {
 
   private async destroy (req: Request, res: Response, next: NextFunction) {
     try {
-      const post = await PostService.deletePost(req.query.id);
+      const post = await PostService.deletePost(req.params.id);
       res.json(post);
     } catch (error) {
       next(error);
